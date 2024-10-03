@@ -8,17 +8,18 @@ pipeline {
 
 		stage("build") {
 
-			steps { sh 'mvn clean deploy'
+			steps { 
+				sh 'mvn clean deploy'
 			}
 		}
 
-	stage('SonarQube analysis') {
-		environment {
-			scannerHome = tool 'saidemy-sonar-scanner'
-		}
-		steps {
-			withSonarQubeEnv('saidemy-sonarqube-server'){
-				sh "${scannerHome}/bin/sonar-scanner"
+		stage('SonarQube analysis') {
+			environment {
+				scannerHome = tool 'saidemy-sonar-scanner'
+			}
+			steps {
+				withSonarQubeEnv('saidemy-sonarqube-server'){
+					sh "${scannerHome}/bin/sonar-scanner"
 			 }
 			}
 		}
